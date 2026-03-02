@@ -1,0 +1,54 @@
+tolerance 1.8
+seed -1
+
+filetype xyz
+output system.xyz
+
+structure LiClO4.xyz
+number 1
+inside cylinder 13.87827524959015 24.0998060936939 3.2033219 -2.2271922775202655 -4.008193169473442 6.69258654315658 2.8 54.78925
+over plane 0.0 -0.0 1.0 0.0
+below plane 0.0 -0.0 1.0 46.85
+over plane 0.7479 0.4295 0.5061 0.0
+below plane 0.7479 0.4295 0.5061 45.06
+over plane -0.0 0.8579 0.5138 0.0
+below plane -0.0 0.8579 0.5138 44.88
+end structure
+
+structure LiClO4.xyz
+number 1
+inside cylinder -1.1429659485762382 50.256700836670944 3.2033219 -2.2271922775202655 -4.008193169473442 6.69258654315658 2.8 54.78925
+over plane 0.0 -0.0 1.0 0.0
+below plane 0.0 -0.0 1.0 46.85
+over plane 0.7479 0.4295 0.5061 0.0
+below plane 0.7479 0.4295 0.5061 45.06
+over plane -0.0 0.8579 0.5138 0.0
+below plane -0.0 0.8579 0.5138 44.88
+end structure
+
+structure LiClO4.xyz
+number 1
+inside cylinder 44.002623424479836 24.0998060936939 3.2033219 -2.2271922775202655 -4.008193169473442 6.69258654315658 2.8 54.78925
+over plane 0.0 -0.0 1.0 0.0
+below plane 0.0 -0.0 1.0 46.85
+over plane 0.7479 0.4295 0.5061 0.0
+below plane 0.7479 0.4295 0.5061 45.06
+over plane -0.0 0.8579 0.5138 0.0
+below plane -0.0 0.8579 0.5138 44.88
+end structure
+
+structure LiClO4.xyz
+number 1
+inside cylinder 28.98138222631345 50.256700836670944 3.2033219 -2.2271922775202655 -4.008193169473442 6.69258654315658 2.8 54.78925
+over plane 0.0 -0.0 1.0 0.0
+below plane 0.0 -0.0 1.0 46.85
+over plane 0.7479 0.4295 0.5061 0.0
+below plane 0.7479 0.4295 0.5061 45.06
+over plane -0.0 0.8579 0.5138 0.0
+below plane -0.0 0.8579 0.5138 44.88
+end structure
+
+structure data.05001N2_ddec-0.75.xyz
+number 1
+fixed 0 0 0 0 0 0
+end structure

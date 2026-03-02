@@ -1,0 +1,28 @@
+import 'ddec-LiClO4.lt'
+import 'Rev-16510N2_ddec-0.75.lt'
+
+write_once('Data Boundary'){
+           0.000000  50.927800 xlo xhi
+           0.000000  44.122925 ylo yhi
+           0.000000  56.957175 zlo zhi
+         -25.445641  -1.181932  -1.013958 xy xz yz
+}
+
+write_once('In Init'){
+    atom_style full
+    units           real
+    pair_style      lj/cut/coul/long 12.500
+    bond_style      harmonic
+    angle_style     hybrid cosine/squared harmonic
+    dihedral_style charmm
+    improper_style umbrella
+    kspace_style    ewald 0.00001
+    pair_modify     tail yes mix geometric
+    special_bonds   dreiding
+    boundary p p p
+
+    box tilt large
+}
+
+LiClO4 = new LiClO4[8]
+Fram = new Fram[1]

@@ -1,0 +1,59 @@
+LiClO4 {
+
+  ### LAMMPS commands for initialization
+  ### (These can be overridden later.)
+    # Ref: Aqvist / E. Pluharova, JPCA, 2013, 117, 11766
+    # Ref: Doherty et al. JCTC, 2017, 13, 6131-6145
+    # charge: ddec (Cl:1.334, O:-0.5835)
+    # scaled for 0.75 * q
+
+  write_once("In Settings") {
+    pair_coeff @atom:Li @atom:Li 0.018279 1.80
+    pair_coeff @atom:Cl @atom:Cl 0.118 3.5
+    pair_coeff @atom:O_2 @atom:O_2 0.210 2.9
+  }
+
+  write_once("In Settings") {
+    bond_coeff @bond:type1 378.8 1.506
+  }
+
+  write_once("In Settings") {
+    angle_coeff @angle:type1 harmonic 103.95 109.5
+  }
+
+
+  ### DATA sections
+
+
+  write_once("Data Masses") {
+    @atom:Li 6.941
+    @atom:Cl 35.453000000
+    @atom:O_2 15.999400000
+  }
+
+  write("Data Atoms") {
+    $atom:Li $mol:m1 @atom:Li 0.75 4.5257 7.4503 6.4111
+    $atom:Cl $mol:m1 @atom:Cl 1.0005 4.90986 5.14432 4.88878
+    $atom:O_2_1 $mol:m1 @atom:O_2 -0.437625 3.77397 4.84872 5.76883
+    $atom:O_2_2 $mol:m1 @atom:O_2 -0.437625 6.15731 5.06419 5.65667
+    $atom:O_2_3 $mol:m1 @atom:O_2 -0.437625 4.76189 6.49542 4.33640
+    $atom:O_2_4 $mol:m1 @atom:O_2 -0.437625 4.94647 4.16945 3.79322
+  }
+
+  write("Data Bonds") {
+    $bond:id1 @bond:type1 $atom:Cl $atom:O_2_1
+    $bond:id2 @bond:type1 $atom:Cl $atom:O_2_2
+    $bond:id3 @bond:type1 $atom:Cl $atom:O_2_3
+    $bond:id4 @bond:type1 $atom:Cl $atom:O_2_4
+  }
+
+  write("Data Angles") {
+    $angle:id1 @angle:type1 $atom:O_2_1 $atom:Cl $atom:O_2_2
+    $angle:id2 @angle:type1 $atom:O_2_1 $atom:Cl $atom:O_2_3
+    $angle:id3 @angle:type1 $atom:O_2_1 $atom:Cl $atom:O_2_4
+    $angle:id4 @angle:type1 $atom:O_2_2 $atom:Cl $atom:O_2_3
+    $angle:id5 @angle:type1 $atom:O_2_2 $atom:Cl $atom:O_2_4
+    $angle:id6 @angle:type1 $atom:O_2_3 $atom:Cl $atom:O_2_4
+  }
+
+} # end of "ClO4" type definition

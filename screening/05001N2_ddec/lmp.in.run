@@ -1,0 +1,157 @@
+# ------
+# groups
+# ------
+group fram type > 3
+group li type 1
+group clo4 type 2:3
+group salt type 1:3
+
+group static type 6 7
+group mobile subtract all static
+
+# ---------
+# variables
+# ---------
+variable anneal_T equal 1000.0
+variable target_T equal 300.0
+variable seed equal 11111
+
+# ----------
+# Simulation
+# ----------
+neighbor 2.0 bin
+neigh_modify every 1 delay 0 check yes
+
+compute salt_temp salt temp
+compute mobile_temp mobile temp
+
+compute li_clo4 li group/group clo4 kspace yes
+compute li_fram li group/group fram kspace yes
+compute clo4_fram clo4 group/group fram kspace yes
+
+# ------------
+# minimization
+# ------------
+print ''
+print '====='
+print 'Minimization'
+print '====='
+print ''
+
+thermo_style custom time c_salt_temp
+
+# freeze fram for minimization
+fix freeze fram setforce 0.0 0.0 0.0
+dump 1 all atom 100 dump.min.lammpstrj
+thermo 100
+min_style sd
+minimize 1.0e-5 1.0e-5 1000 10000
+min_style cg
+minimize 1.0e-5 1.0e-5 1000 10000
+undump 1
+unfix freeze
+
+# -----------------
+# Annealing the salt for random positioning of salts
+# ----------------- 
+print ''
+print '====='
+print 'set velocity'
+print '====='
+print ''
+
+velocity salt create 10.0 ${seed} rot yes dist gaussian
+
+print ''
+print '====='
+print 'NVT dynamics to heat system (heat to 1000K) for randomization of Li salt (50 ps)'
+print '(Freeze framework)'
+print '====='
+print ''
+
+reset_timestep 0
+timestep 1.0
+dump 1 all atom 1000 dump.heatsalt.lammpstrj
+fix 1 salt nvt temp 10.0 ${anneal_T} 100.0
+thermo 1000
+run 50000 # run for 50 ps
+unfix 1
+undump 1
+
+print ''
+print '====='
+print 'NVT dynamics to annealing at 1000K (0.2 ns)'
+print '(Freeze framework)'
+print '====='
+print ''
+
+reset_timestep 0
+timestep 1.0
+dump 1 all atom 50000 dump.anneal.lammpstrj
+fix 1 salt nvt temp ${anneal_T} ${anneal_T} 100.0
+thermo 50000
+run 200000 # run for 200 ps
+unfix 1
+undump 1
+
+# -------
+# Reset velocity and get into target temperature
+# -------
+print ''
+print '====='
+print 'velocity reset to 10K'
+print '====='
+print ''
+
+velocity mobile create 10.0 ${seed} rot yes dist gaussian
+thermo_style custom time c_mobile_temp c_li_clo4 c_li_fram c_clo4_fram pe etotal vol
+
+print ''
+print '====='
+print 'NVT dynamics to heating to 300K (50 ps)'
+print '====='
+print ''
+
+reset_timestep 0
+timestep 1.0
+dump 1 all atom 1000 dump.heat.lammpstrj
+fix 1 mobile nvt temp 10.0 ${target_T} 100.0
+thermo 1000
+run 50000 # run for 50 ps
+unfix 1
+undump 1
+
+print ''
+print '====='
+print 'NVT dynamics to equilibration at 300K for 1 ns'
+print '====='
+print ''
+
+reset_timestep 0
+timestep 2.0
+dump 1 all atom 10000 dump.eq.lammpstrj
+fix 1 mobile nvt temp ${target_T} ${target_T} 100.0
+thermo 10000
+run 500000 # run for 1 ns
+unfix 1
+undump 1
+
+print ''
+print '====='
+print 'NVT dynamcis for production for 10 ns'
+print '====='
+print ''
+
+compute li_msd li msd
+compute clo4_msd clo4 msd
+
+thermo_style custom time c_mobile_temp c_li_clo4 c_li_fram c_clo4_fram pe etotal vol c_li_msd[3] c_li_msd[4] c_clo4_msd[3] c_clo4_msd[4]
+
+reset_timestep 0
+timestep 2.0
+dump 1 all atom 10000 dump.prod.lammpstrj
+fix 2 mobile nvt temp ${target_T} ${target_T} 100.0
+thermo 10000
+run 5000000 # run for 10 ns
+unfix 2
+undump 1
