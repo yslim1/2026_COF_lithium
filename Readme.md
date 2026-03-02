@@ -32,7 +32,7 @@ This repository contains three main components:</br>
 
 ## 2. `screening/` directory
 
-- This directory contains example input files for molecular dynamics (MD) simulations. Four representative COFs with different topologies are provided: `05001N2_ddec, 16170N2_ddec, 16510N2_ddec, 20470N2_ddec`.
+- This directory contains example input files for molecular dynamics (MD) simulations. Four representative COFs with different topologies are provided: `05001N2_ddec`, `16170N2_ddec`, `16510N2_ddec`, `20470N2_ddec`.
 
 - Each example directory includes:
 
