@@ -24,6 +24,9 @@ This repository contains three main components:</br>
     - Accessible surface area (ASA)
     - Accessible surface volume
     - Accessible void fraction
+  - Topology information:
+    - Topology - Topologies assigned using CrystalNets software (https://progs.coudert.name/topology)
+    - Topology_manually_updated - Manually corrected topology labels for structures where automatic assignment was unsuccessful or inconsistent
 
 
 ---
