@@ -1,6 +1,6 @@
 # Description for uploaded data
 
-This repository provides additional data associated with the manuscript **"Data-Driven Analysis of Lithium-ion Transport in Covalent-Organic Frameworks (Lim et al., 2026)"**. </br>
+This repository provides additional data associated with the manuscript **"Data-driven Discovery of Design Principles for Covalent-Organic Framework-based Solid-state Li-ion Electrolytes (Lim et al., 2026)"**. </br>
 
 This repository contains three main components:</br>
 
@@ -73,7 +73,7 @@ This repository contains three main components:</br>
     - Target properties must be prepared in `.json` format.
     - The `max_length` parameter was set to 1000 (default: 60) to accomodate large COF structures.
 
-  (c) Jupyter Notebooks
+    (c) Jupyter Notebooks
 
   - `fromscratch_training.ipynb`, `pmtransformer_training.ipynb`
   - These notebooks perform model training using 5 learning rates and 5 weight decay values.
